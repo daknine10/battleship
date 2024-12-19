@@ -1,3 +1,5 @@
+import { ModuleFilenameHelpers } from "webpack";
+
 const rows = 10;
 const columns = 10;
 
@@ -5,6 +7,7 @@ export default class Gameboard {
     constructor() {
         this.board = []
         this.initializeBoard()
+        this.ships = []
     }
 
     initializeBoard() {
@@ -17,6 +20,7 @@ export default class Gameboard {
     }
 
     placeShip(ship, row, column) {
+        this.ships.push(ship)
         switch (ship.pos) {
             case 'vertical':
                 if (rows - ship.length < row)  {
@@ -27,6 +31,7 @@ export default class Gameboard {
                     row++;
                 }
                 return true;
+
             case 'horizontal':
                 if (columns - ship.length < column) {
                     return false
@@ -47,4 +52,10 @@ export default class Gameboard {
         this.board[row][column] = 1
         return false
     }
+
+    checkSunk() {
+        if (this.ships.every((a) => a.sunk === true)) return true;
+    }
 };
+
+module.export(Gameboard())
