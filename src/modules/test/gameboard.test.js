@@ -1,4 +1,4 @@
-const Gameboard = require('../gameboard.js')
+const { Gameboard } = require('../gameboard.js')
 
 const board = new Gameboard()
 const ship = new Ship(3)

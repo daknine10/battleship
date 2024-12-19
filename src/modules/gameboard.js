@@ -58,4 +58,4 @@ export default class Gameboard {
     }
 };
 
-module.export(Gameboard())
+module.exports = { Gameboard }
