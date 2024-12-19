@@ -15,3 +15,5 @@ export default class Ship {
         this.isSunk();
     }
 }
+
+module.exports = { Ship }
