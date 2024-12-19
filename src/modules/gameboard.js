@@ -11,7 +11,7 @@ export default class Gameboard {
         for (let i = 0; i < rows; i++) {
             this.board[i] = []
             for (let j = 0; j < columns; j++) {
-                this.board[i][j] = []
+                this.board[i][j] = null
             }
         }
     }
@@ -37,5 +37,14 @@ export default class Gameboard {
                 }  
                 return true;
         }
+    }
+
+    receiveAttack(row, column) {
+        if (this.board[row][column] !== null) {
+            this.board[row][column].hit()
+            return true
+        }
+        this.board[row][column] = 1
+        return false
     }
 };
