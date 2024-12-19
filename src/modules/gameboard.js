@@ -1,7 +1,7 @@
 const rows = 10;
 const columns = 10;
 
-class Gameboard {  
+export default class Gameboard {  
     constructor() {
         this.board = []
         this.initializeBoard()
@@ -21,11 +21,21 @@ class Gameboard {
             case 'vertical':
                 if (rows - ship.length < row)  {
                     return false
-                }       
+                }
+                for (let i = 0; i < ship.length; i++) {
+                    this.board[row][column] = ship;
+                    row++;
+                }
+                return true;
+            case 'horizontal':
+                if (columns - ship.length < column) {
+                    return false
+                }     
+                for (let i = 0; i < ship.length; i++) {
+                    this.board[row][column] = ship;
+                    column++;
+                }  
+                return true;
         }
     }
 };
-
-const game = new Gameboard();
-
-console.log(game.board)
