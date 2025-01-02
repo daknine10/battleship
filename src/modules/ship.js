@@ -1,9 +1,9 @@
 export default class Ship {
-    constructor(length) {
+    constructor(length, pos = 'vertical') {
         this.length = length;
         this.hits = 0;
         this.sunk = false;
-        this.pos = 'vertical'
+        this.pos = pos
     }
 
     isSunk() {
@@ -15,5 +15,3 @@ export default class Ship {
         this.isSunk();
     }
 }
-
-module.exports = { Ship }

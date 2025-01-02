@@ -1,5 +1,3 @@
-import { ModuleFilenameHelpers } from "webpack";
-
 const rows = 10;
 const columns = 10;
 
@@ -11,6 +9,10 @@ export default class Gameboard {
     }
 
     initializeBoard() {
+        if (this.ships) {
+            this.ships = []
+        }
+        
         for (let i = 0; i < rows; i++) {
             this.board[i] = []
             for (let j = 0; j < columns; j++) {
@@ -55,7 +57,7 @@ export default class Gameboard {
 
     checkSunk() {
         if (this.ships.every((a) => a.sunk === true)) return true;
+        return false
     }
 };
 
-module.exports = { Gameboard }
