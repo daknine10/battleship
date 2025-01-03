@@ -10,10 +10,20 @@ export default function renderGameboard(boardContainer, gameboard) {
             grid.className = "grid";
             grid.dataset.column = j;
             grid.dataset.row = i;
-            if (gameboard[i][j] !== null) {
-                if (gameboard[i][j] instanceof Ship) grid.textContent = "S"
+            if (gameboard.board[i][j] !== null) {
+                if (gameboard.board[i][j] instanceof Ship) grid.textContent = "S"
+                else if  (gameboard.board[i][j] === 1) grid.textContent ="H"
                 else grid.textContent = "X"
             }
+
+            grid.addEventListener("click", () => {
+                if (grid.textContent === "S") {
+                    gameboard.receiveAttack(i, j)
+                    grid.textContent = "H";
+                }
+                grid.disabled = true;
+            })
+
             gridBoard.appendChild(grid);
         }
     }
