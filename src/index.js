@@ -17,8 +17,8 @@ player1.gameboard.placeShip(smallShip1, 2, 5);
 
 const bigShip2 = new Ship(5)
 const smallShip2 = new Ship(2, 'horizontal')
-player2.gameboard.placeShip(bigShip1, 2, 4);
-player2.gameboard.placeShip(smallShip1, 6, 5);
+player2.gameboard.placeShip(bigShip2, 2, 4);
+player2.gameboard.placeShip(smallShip2, 6, 5);
 
 renderGameboard(player1Board, player1.gameboard);
 renderGameboard(player2Board, player2.gameboard);

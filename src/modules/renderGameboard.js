@@ -11,15 +11,20 @@ export default function renderGameboard(boardContainer, gameboard) {
             grid.dataset.column = j;
             grid.dataset.row = i;
             if (gameboard.board[i][j] !== null) {
-                if (gameboard.board[i][j] instanceof Ship) grid.textContent = "S"
+                if (gameboard.board[i][j] instanceof Ship) grid.textContent = "S" //* remove later, debugging purpose only
                 else if  (gameboard.board[i][j] === 1) grid.textContent ="H"
                 else grid.textContent = "X"
             }
 
             grid.addEventListener("click", () => {
-                if (grid.textContent === "S") {
+                if (gameboard.board[i][j] instanceof Ship) {
                     gameboard.receiveAttack(i, j)
                     grid.textContent = "H";
+                }
+                else {
+                    grid.textContent = "M";
+                    let gridChildren = gridBoard.querySelectorAll(".grid");
+                    gridChildren.forEach((child) => child.disabled = true)
                 }
                 grid.disabled = true;
             })
@@ -27,4 +32,8 @@ export default function renderGameboard(boardContainer, gameboard) {
             gridBoard.appendChild(grid);
         }
     }
+}
+
+function nextTurn(container) {
+    document.querySelectorAll
 }
