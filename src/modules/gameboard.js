@@ -22,6 +22,7 @@ export default class Gameboard {
     }
 
     placeShip(ship, row, column) {
+        this.ships.push(ship)
         switch (ship.pos) {
             case 'vertical':
                 if (rows - ship.length < row)  {

@@ -1,5 +1,7 @@
 import Ship from './ship.js'
 
+let playerTurn = 1
+
 const player1Board = document.querySelector('.player1')
 const player2Board = document.querySelector('.player2')
 
@@ -22,17 +24,24 @@ export default function renderGameboard(boardContainer, gameboard) {
             grid.addEventListener("click", () => {
                 if (gameboard.board[i][j] instanceof Ship) {
                     gameboard.receiveAttack(i, j)
-                    grid.textContent = "H";
+                    grid.textContent = "Hit";
+
+                    if (gameboard.checkSunk() && playerTurn === 1) alert("Player 1 Won!")
+                    else if (gameboard.checkSunk() && playerTurn === 2) alert ("Player 2 Won!")
                 }
                 else {
-                    grid.textContent = "M";
+                    grid.textContent = "Miss";
                     let gridChildren = gridBoard.querySelectorAll(".grid");
                     gridChildren.forEach((child) => child.disabled = true)
-                    if (boardContainer.className === "player1") {
+
+                    if (playerTurn === 1) {
                         player2Board.querySelectorAll(".grid").forEach((child) => child.disabled = false)
-                        console.log(boardContainer.className)
+                        playerTurn = 2
                     }
-                    else player1Board.querySelectorAll(".grid").forEach((child) => child.disabled = false)
+                    else {
+                        player1Board.querySelectorAll(".grid").forEach((child) => child.disabled = false)
+                        playerTurn = 1
+                    }
                 }
                 grid.disabled = true;
                 grid.className = "grid-disabled"
