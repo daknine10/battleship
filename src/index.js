@@ -20,7 +20,7 @@ const smallShip2 = new Ship(2, 'horizontal')
 player2.gameboard.placeShip(bigShip2, 2, 4);
 player2.gameboard.placeShip(smallShip2, 6, 5);
 
-renderGameboard(player1Board, player1.gameboard);
+renderGameboard(player1Board, player1.gameboard); // remake renderGameboard so it doesnt take any arguments
 renderGameboard(player2Board, player2.gameboard);
 
 console.log(player1.gameboard)
