@@ -1,5 +1,8 @@
 import Ship from './ship.js'
 
+const player1Board = document.querySelector('.player1')
+const player2Board = document.querySelector('.player2')
+
 export default function renderGameboard(boardContainer, gameboard) {
     const gridBoard = document.createElement("div");
     boardContainer.appendChild(gridBoard)
@@ -25,15 +28,17 @@ export default function renderGameboard(boardContainer, gameboard) {
                     grid.textContent = "M";
                     let gridChildren = gridBoard.querySelectorAll(".grid");
                     gridChildren.forEach((child) => child.disabled = true)
+                    if (boardContainer.className === "player1") {
+                        player2Board.querySelectorAll(".grid").forEach((child) => child.disabled = false)
+                        console.log(boardContainer.className)
+                    }
+                    else player1Board.querySelectorAll(".grid").forEach((child) => child.disabled = false)
                 }
                 grid.disabled = true;
+                grid.className = "grid-disabled"
             })
 
             gridBoard.appendChild(grid);
         }
     }
-}
-
-function nextTurn(container) {
-    document.querySelectorAll
 }
