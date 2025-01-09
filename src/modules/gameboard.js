@@ -1,3 +1,5 @@
+import Ship from "./ship";
+
 const rows = 10;
 const columns = 10;
 
@@ -47,11 +49,15 @@ export default class Gameboard {
     }
 
     receiveAttack(row, column) {
-        if (this.board[row][column] !== null) {
+
+        if (this.board[row][column] instanceof Ship) {
             this.board[row][column].hit()
+            this.board[row][column] = 1
             return true
         }
-        this.board[row][column] = 1
+        else {
+            this.board[row][column] = 0
+        }
         return false
     }
 

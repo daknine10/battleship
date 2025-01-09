@@ -1,3 +1,9 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -6,6 +12,13 @@ body {
 
 .gameboard {
     display: grid;
+    width: 30%;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 0px;
+}
+
+.grid, .grid-disabled {
+    height: 50px;
+    width: 50px;
 }

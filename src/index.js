@@ -2,6 +2,7 @@ import Gameboard from "./modules/gameboard.js";
 import Ship from "./modules/ship.js";
 import Player from "./modules/player.js"
 import renderGameboard from "./modules/renderGameboard.js";
+import addPlayerListener from "./modules/event.js"
 import "./styles.css"
 
 const player1 = new Player(new Gameboard());
