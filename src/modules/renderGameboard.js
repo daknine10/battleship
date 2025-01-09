@@ -3,9 +3,6 @@ import addPlayerListener from './event.js';
 
 export default function renderGameboard(boardContainer, gameboard) {
     boardContainer.textContent = "";
-    const gridBoard = document.createElement("div");
-    boardContainer.appendChild(gridBoard)
-    gridBoard.className = "gameboard";
 
     for (let i = 0; i < 10; i++) {
         for (let j = 0; j < 10; j++) {
@@ -24,7 +21,7 @@ export default function renderGameboard(boardContainer, gameboard) {
                     grid.disabled = true;
                 }
             }
-            gridBoard.appendChild(grid);
+            boardContainer.appendChild(grid);
         }
     }
     addPlayerListener(boardContainer, gameboard)
