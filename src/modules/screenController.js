@@ -42,8 +42,6 @@ function addPlayerListener(boardContainer, gameboard) {
             if (playerTurn === 1) playerTurn = 2
             else playerTurn = 1
 
-            boardContainer.parentElement.dataset.turn = playerTurn
-
             if (gameboard.checkSunk() && playerTurn === 1) alert("Player 1 Won!")
             else if (gameboard.checkSunk() && playerTurn === 2) alert ("Player 2 Won!")
 
