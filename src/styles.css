@@ -22,3 +22,7 @@ body {
     height: 50px;
     width: 50px;
 }
+
+.grid-disabled {
+    background-color: black;
+}

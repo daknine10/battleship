@@ -16,8 +16,11 @@ export default class GameController {
 
     playRound(row, column) {
         this.activePlayer.gameboard.receiveAttack(row, column);
-        if (this.checkWinner()) alert(`${this.activePlayer.name} wins!`)
-        this.switchTurn()
+        this.switchTurn();
+        if (this.checkWinner()) {
+            console.log(`${this.activePlayer.name} wins!`);
+            return true;
+        }
     }
 
     checkWinner() {

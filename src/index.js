@@ -7,13 +7,13 @@ import GameController from "./modules/gameController.js";
 
 
 
-const player1 = new Player(new Gameboard());
-const player2 = new Player(new Gameboard());
+const player1 = new Player('Player1');
+const player2 = new Player('Player2');
 const game = new GameController(player1, player2)
-const screenController = new ScreenController(game)
 
 const player1Board = document.querySelector('.player1')
 const player2Board = document.querySelector('.player2')
+const screenController = new ScreenController(game, player1Board, player2Board)
 
 const bigShip1 = new Ship(5);
 const smallShip1 = new Ship(2, 'horizontal');

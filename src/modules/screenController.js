@@ -1,8 +1,15 @@
 import Ship from './ship.js'
 
 export default class ScreenController {
-    constructor(game) {
-        this.game = game
+    constructor(game, player1Board, player2Board) {
+        this.game = game;
+        this.player1Board = player1Board;
+        this.player2Board = player2Board;
+    }
+
+    updateScreen() {
+        this.renderGameboard(this.player1Board, this.game.player1)
+        this.renderGameboard(this.player2Board, this.game.player2)
     }
 
     renderGameboard(boardContainer, player) {
@@ -16,9 +23,9 @@ export default class ScreenController {
                 grid.dataset.column = j;
                 grid.dataset.row = i;
                 grid.addEventListener("click", () => {
-                    this.game.playRound(i, j)
-                    this.renderGameboard()
-                }) /// THIS HAS TO BE CHANGED INTO ITS OWN FUNCTION
+                    if (this.game.playRound(i, j)) alert(`${this.game.activePlayer.name}`)
+                    this.updateScreen()
+                })
                 if (player.gameboard.board[i][j] !== null) {
                     if (player.gameboard.board[i][j] instanceof Ship) grid.textContent = "S" //* remove later, debugging purpose only
                     else if  (player.gameboard.board[i][j] === 1) {
