@@ -1,12 +1,16 @@
 import Gameboard from "./modules/gameboard.js";
 import Ship from "./modules/ship.js";
 import Player from "./modules/player.js"
-import renderGameboard from "./modules/renderGameboard.js";
-import addPlayerListener from "./modules/event.js"
 import "./styles.css"
+import ScreenController from "./modules/screenController.js";
+import GameController from "./modules/gameController.js";
+
+
 
 const player1 = new Player(new Gameboard());
 const player2 = new Player(new Gameboard());
+const game = new GameController(player1, player2)
+const screenController = new ScreenController(game)
 
 const player1Board = document.querySelector('.player1')
 const player2Board = document.querySelector('.player2')
@@ -21,8 +25,8 @@ const smallShip2 = new Ship(2, 'horizontal')
 player2.gameboard.placeShip(bigShip2, 2, 4);
 player2.gameboard.placeShip(smallShip2, 6, 5);
 
-renderGameboard(player1Board, player1.gameboard, 1); // remake renderGameboard so it doesnt take any arguments
-renderGameboard(player2Board, player2.gameboard, 2);
+screenController.renderGameboard(player1Board, game.player1)
+screenController.renderGameboard(player2Board, game.player2)
 
 console.log(player1.gameboard)
 console.log(player2.gameboard)
