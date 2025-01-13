@@ -22,24 +22,29 @@ export default class ScreenController {
                 grid.className = "grid";
                 grid.dataset.column = j;
                 grid.dataset.row = i;
+
                 grid.addEventListener("click", () => {
                     if (this.game.playRound(i, j)) alert(`${this.game.activePlayer.name}`)
                     this.updateScreen()
                 })
-                if (player.gameboard.board[i][j] !== null) {
-                    if (player.gameboard.board[i][j] instanceof Ship) grid.textContent = "S" //* remove later, debugging purpose only
-                    else if  (player.gameboard.board[i][j] === 1) {
-                        grid.textContent ="X";
-                        grid.disabled = true;
-                    }
-                    else {
-                        grid.className = "grid-disabled"
-                        grid.disabled = true;
-                    }
-                }
+                
                 if (this.game.activePlayer !== player) {
                     grid.disabled = true;
                 }     
+                else {
+                    if (player.gameboard.board[i][j] !== null) {
+                        if (player.gameboard.board[i][j] instanceof Ship) grid.textContent = "S" //* remove later, debugging purpose only
+                        else if  (player.gameboard.board[i][j] === 1) {
+                            grid.textContent ="X";
+                            grid.disabled = true;
+                        }
+                        else {
+                            grid.className = "grid-disabled"
+                            grid.disabled = true;
+                        }
+                    }
+                }
+                
                 boardContainer.appendChild(grid);
             }
         }

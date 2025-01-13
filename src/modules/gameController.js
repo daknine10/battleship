@@ -1,10 +1,9 @@
 //taking turns, making players, computer and human
 
-import Gameboard from "./gameboard"
 import Player from "./player"
 
 export default class GameController {
-    constructor(player1 = new Player('Player 1', 'real'), player2 = new Player('Computer', 'computer')) {
+    constructor(player1 = new Player('Player 1'), player2 = new Player('Computer')) {
         this.player1 = player1
         this.player2 = player2
         this.activePlayer = player1
@@ -28,4 +27,10 @@ export default class GameController {
             return true
     }
 
+}
+
+class ComputerPlayer {
+    constructor(player) {
+        
+    }
 }
