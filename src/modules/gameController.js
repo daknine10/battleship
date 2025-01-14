@@ -41,12 +41,21 @@ export default class GameController {
         }
         else {
             let coordinates = this.q.pop()
+            while (this.activePlayer.gameboard.board[coordinates[0]][coordinates[1] === 1]) {
+                coordinates = this.q.pop();
+            }
             row = coordinates[0]
             column = coordinates[1]
         }
+
         while (this.activePlayer.gameboard.receiveAttack(row, column)) {
             this._refreshQueue(row, column)
+
             let coordinates = this.q.pop()
+            while (this.activePlayer.gameboard.board[coordinates[0]][coordinates[1]] === 1) {
+                coordinates = this.q.pop();
+                console.log(coordinates)
+            }
             row = coordinates[0]
             column = coordinates[1]
         };
@@ -55,6 +64,7 @@ export default class GameController {
 
     _refreshQueue(row, column) {
         this.q = []
+
         this.q.push([row - 1, column], [row, column - 1], [row, column + 1], [row + 1, column])
         shuffle(this.q)
     }

@@ -55,10 +55,9 @@ export default class Gameboard {
             this.board[row][column] = 1
             return true
         }
-        else {
+        else if (this.board[row][column] !== 1) {
             this.board[row][column] = 0
         }
-        return false
     }
 
     checkSunk() {
