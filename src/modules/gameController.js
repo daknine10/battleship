@@ -14,8 +14,11 @@ export default class GameController {
     }
 
     playRound(row, column) {
-        this.activePlayer.gameboard.receiveAttack(row, column);
+        if (this.activePlayer.gameboard.receiveAttack(row, column)) {
+            return
+        }
         this.switchTurn();
+        if (this.activePlayer.name === 'Computer') this.computerTurn()
         if (this.checkWinner()) {
             console.log(`${this.activePlayer.name} wins!`);
             return true;
@@ -27,10 +30,21 @@ export default class GameController {
             return true
     }
 
-}
 
-class ComputerPlayer {
-    constructor(player) {
-        
+    computerTurn() {
+        let row = Math.floor(Math.random() * 10);
+        let column = Math.floor(Math.random() * 10)
+        while (this.activePlayer.gameboard.receiveAttack(row, column)) {
+            let q = []
+            console.log(q)
+            q.push([row - 1, column], [row, column - 1], [row, column + 1], [row + 1, column])
+
+
+            let coordinates = q.pop()
+
+            row = coordinates[0]
+            column = coordinates[1]
+        };
+        this.switchTurn();
     }
 }
