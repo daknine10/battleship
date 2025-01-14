@@ -2,11 +2,14 @@
 
 import Player from "./player"
 
+
+
 export default class GameController {
     constructor(player1 = new Player('Player 1'), player2 = new Player('Computer')) {
         this.player1 = player1
         this.player2 = player2
         this.activePlayer = player1
+        this.q = []
     }
 
     switchTurn() {
@@ -30,21 +33,40 @@ export default class GameController {
             return true
     }
 
-
     computerTurn() {
-        let row = Math.floor(Math.random() * 10);
-        let column = Math.floor(Math.random() * 10)
+        let row, column;
+        if (!this.q.length) {
+            row = Math.floor(Math.random() * 10);
+            column = Math.floor(Math.random() * 10)
+        }
+        else {
+            let coordinates = this.q.pop()
+            row = coordinates[0]
+            column = coordinates[1]
+        }
         while (this.activePlayer.gameboard.receiveAttack(row, column)) {
-            let q = []
-            console.log(q)
-            q.push([row - 1, column], [row, column - 1], [row, column + 1], [row + 1, column])
-
-
-            let coordinates = q.pop()
-
+            this._refreshQueue(row, column)
+            let coordinates = this.q.pop()
             row = coordinates[0]
             column = coordinates[1]
         };
         this.switchTurn();
     }
+
+    _refreshQueue(row, column) {
+        this.q = []
+        this.q.push([row - 1, column], [row, column - 1], [row, column + 1], [row + 1, column])
+        shuffle(this.q)
+    }
+}
+
+function shuffle (arr) {
+    var j, x, index;
+    for (index = arr.length - 1; index > 0; index--) {
+        j = Math.floor(Math.random() * (index + 1));
+        x = arr[index];
+        arr[index] = arr[j];
+        arr[j] = x;
+    }
+    return arr;
 }
