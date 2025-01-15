@@ -26,3 +26,13 @@ body {
 .grid-disabled {
     background-color: black;
 }
+
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+h2 {
+    text-align: center;
+}
