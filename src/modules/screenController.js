@@ -8,6 +8,10 @@ export default class ScreenController {
     }
 
     updateScreen() {
+        if (this.game.checkWinner()) {
+            this.player1Board.parentElement.textContent = `${this.game.activePlayer.name} wins!`;
+            return;
+        }
         this.renderGameboard(this.player1Board, this.game.player1)
         this.renderGameboard(this.player2Board, this.game.player2)
     }
@@ -24,7 +28,9 @@ export default class ScreenController {
                 grid.dataset.row = i;
 
                 grid.addEventListener("click", () => {
-                    if (this.game.playRound(i, j)) alert(`${this.game.activePlayer.name}`)
+                    if (this.game.playRound(i, j))  {
+                        boardContainer.parentElement.parentElement.textContent = `${this.game.activePlayer.name} wins!`
+                    }
                     this.updateScreen()
                 })
 

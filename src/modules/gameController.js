@@ -72,6 +72,10 @@ export default class GameController {
             row = coordinates[0]
             column = coordinates[1]
         };
+        if (this.checkWinner()) {
+            console.log(`${this.activePlayer.name} wins!`);
+            return true;
+        };
         this.switchTurn();
     }
 
