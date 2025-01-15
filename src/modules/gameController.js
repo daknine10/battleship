@@ -1,5 +1,5 @@
 //taking turns, making players, computer and human
-
+import Ship from "./ship"
 import Player from "./player"
 
 
@@ -18,7 +18,7 @@ export default class GameController {
 
     playRound(row, column) {
         if (this.activePlayer.gameboard.receiveAttack(row, column)) {
-            return
+            return false
         }
         this.switchTurn();
         if (this.activePlayer.name === 'Computer') this.computerTurn()
@@ -34,28 +34,37 @@ export default class GameController {
     }
 
     computerTurn() {
-        let row, column;
-        if (!this.q.length) {
-            row = Math.floor(Math.random() * 10);
-            column = Math.floor(Math.random() * 10)
+        let row = Math.floor(Math.random() * 10);
+        let column = Math.floor(Math.random() * 10)
+
+        if (!this.q.length) {            
+            while (!this._checkValid(row, column)) {
+                row = Math.floor(Math.random() * 10);
+                column = Math.floor(Math.random() * 10)
+            }
         }
         else {
             let coordinates = this.q.pop()
-            while (this.activePlayer.gameboard.board[coordinates[0]][coordinates[1] === 1]) {
-                coordinates = this.q.pop();
-            }
             row = coordinates[0]
             column = coordinates[1]
         }
 
+        console.log(row)
+        console.log(column)
+
         while (this.activePlayer.gameboard.receiveAttack(row, column)) {
             this._refreshQueue(row, column)
 
-            let coordinates = this.q.pop()
-            while (this.activePlayer.gameboard.board[coordinates[0]][coordinates[1]] === 1) {
-                coordinates = this.q.pop();
-                console.log(coordinates)
+            if (!this.q.length) {
+                while (!this._checkValid(row, column)) {
+                    row = Math.floor(Math.random() * 10);
+                    column = Math.floor(Math.random() * 10)
+                    continue
+                }
             }
+
+            let coordinates = this.q.pop()
+
             row = coordinates[0]
             column = coordinates[1]
         };
@@ -63,10 +72,16 @@ export default class GameController {
     }
 
     _refreshQueue(row, column) {
-        this.q = []
-
-        this.q.push([row - 1, column], [row, column - 1], [row, column + 1], [row + 1, column])
+        this.q = [[row - 1, column], [row, column - 1], [row, column + 1], [row + 1, column]]
+        this.q = this.q.filter((coordinate) => this._checkValid(coordinate[0], coordinate[1]))
         shuffle(this.q)
+    }
+
+    _checkValid(row, column) {
+        if (row < 0 || row >= 10 || column < 0 || column >= 10) {
+            return false;
+        }
+        return this.activePlayer.gameboard.board[row][column] === null || this.activePlayer.gameboard.board[row][column] instanceof Ship;
     }
 }
 
