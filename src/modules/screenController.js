@@ -5,6 +5,7 @@ export default class ScreenController {
         this.game = game;
         this.player1Board = player1Board;
         this.player2Board = player2Board;
+        this.renderTurn()
     }
 
     updateScreen() {
@@ -12,8 +13,13 @@ export default class ScreenController {
             this.player1Board.parentElement.textContent = `${this.game.activePlayer.name} wins!`;
             return;
         }
+        if (this.game.mode === 'computer') {
+            this.renderTurn(this.game.player2.name)
+            const computerTurn = setTimeout(() => {
+                this.renderGameboard(this.player2Board, this.game.player2)
+                this.renderTurn()}, 200)
+        }
         this.renderGameboard(this.player1Board, this.game.player1)
-        this.renderGameboard(this.player2Board, this.game.player2)
     }
 
     renderGameboard(boardContainer, player) {
@@ -53,5 +59,11 @@ export default class ScreenController {
                 boardContainer.appendChild(grid);
             }
         }
+    }
+
+    renderTurn(player = this.game.activePlayer.name) {
+        const turn = document.createElement('h1')
+        turn.textContent = `${player}'s turn.`
+        this.player1Board.parentElement.parentElement.append(turn)
     }
 }

@@ -10,6 +10,7 @@ export default class GameController {
         this.player2 = player2
         this.activePlayer = player1
         this.q = []
+        this.mode = 'computer'
     }
 
     switchTurn() {
@@ -23,7 +24,7 @@ export default class GameController {
                 return true;
             }
             return false
-        }
+        };
         this.switchTurn();
         if (this.activePlayer.name === 'Computer') this.computerTurn()
         if (this.checkWinner()) {
