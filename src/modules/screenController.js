@@ -1,4 +1,6 @@
 import Ship from './ship.js'
+
+const container = document.querySelector('.container')
 const player1Board = document.querySelector('.player1')
 const player2Board = document.querySelector('.player2')
 const turn = document.querySelector('.turn')
@@ -6,11 +8,13 @@ const turn = document.querySelector('.turn')
 export default class ScreenController {
     constructor(game) {
         this.game = game;
+        turn.textContent = `${this.game.activePlayer.name}'s turn`
     }
 
     updateScreen() {
-        this.renderGameboard(player1Board, this.game.player2)
-        this.renderGameboard(player2Board, this.game.player1)
+        turn.textContent = `${this.game.activePlayer.name}'s turn`;
+        this.renderGameboard(player1Board, this.game.player2);
+        this.renderGameboard(player2Board, this.game.player1);
     }
 
     renderGameboard(boardContainer, player) {
@@ -50,12 +54,13 @@ export default class ScreenController {
     async gridEvent(row, column) {
         if (this.game.playerTurn(row, column)) {
             this.updateScreen()
+             if (this.game.checkWinner()) container.textContent = `${this.game.activePlayer.name} wins!`
             return
         }
-        this.updateScreen()
-        if (this.game.checkWinner()) alert(`${this.game.activePlayer()}`)
+        if (this.game.checkWinner()) container.textContent = `${this.game.activePlayer.name} wins!`
 
         this.game.switchTurn();
+        this.updateScreen();
         
         while (this.game.computerTurn()) {
             await new Promise(resolve => setTimeout(resolve, 500));
@@ -63,8 +68,8 @@ export default class ScreenController {
             continue;
         }
 
-        if (this.game.checkWinner()) alert(`${this.game.activePlayer()}`)
-
+        if (this.game.checkWinner()) container.textContent = `${this.game.activePlayer.name} wins!`
+            
         await new Promise(resolve => setTimeout(resolve, 500));
         this.game.switchTurn()
         this.updateScreen()

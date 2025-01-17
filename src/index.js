@@ -13,7 +13,7 @@ const game = new GameController(player1, player2)
 
 const player1Board = document.querySelector('.player1')
 const player2Board = document.querySelector('.player2')
-const screenController = new ScreenController(game, player2Board, player1Board)
+const screenController = new ScreenController(game)
 
 const bigShip1 = new Ship(5);
 const smallShip1 = new Ship(2, 'horizontal');
@@ -27,8 +27,3 @@ player2.gameboard.placeShip(smallShip2, 6, 5);
 
 screenController.renderGameboard(player1Board, game.player2)
 screenController.renderGameboard(player2Board, game.player1)
-
-console.log(player1.gameboard)
-console.log(player2.gameboard)
-
-// need a gamecontroller to drive the turns
