@@ -24,19 +24,7 @@ export default class ScreenController {
                 grid.dataset.column = j;
                 grid.dataset.row = i;
 
-                grid.addEventListener("click", () => {
-                    if (this.game.playerTurn(i, j)) {
-                        this.updateScreen()
-                        return
-                    }
-                    if (this.game.checkWinner()) alert(`${this.game.activePlayer()}`)
-                    this.game.switchTurn();
-                    
-                    this.computerMove()
-
-                    if (this.game.checkWinner()) alert(`${this.game.activePlayer()}`)
-                    this.updateScreen(); //NEED TO MAKE THIS AN ASYNC FUNCTION
-                })
+                grid.addEventListener("click", () => this.gridEvent(i, j))
 
                 if (player.gameboard.board[i][j] !== null) {
                     if (player.gameboard.board[i][j] instanceof Ship) grid.textContent = "S" //* remove later, debugging purpose only
@@ -59,12 +47,27 @@ export default class ScreenController {
         }
     }
 
-    async computerMove() {
+    async gridEvent(row, column) {
+        if (this.game.playerTurn(row, column)) {
+            this.updateScreen()
+            return
+        }
+        this.updateScreen()
+        if (this.game.checkWinner()) alert(`${this.game.activePlayer()}`)
 
+        this.game.switchTurn();
+        
         while (this.game.computerTurn()) {
-            await setTimeout(() => {this.updateScreen()}, 500)
+            await new Promise(resolve => setTimeout(resolve, 500));
+            this.updateScreen()
             continue;
         }
+
+        if (this.game.checkWinner()) alert(`${this.game.activePlayer()}`)
+
+        await new Promise(resolve => setTimeout(resolve, 500));
         this.game.switchTurn()
+        this.updateScreen()
     }
 }
+
