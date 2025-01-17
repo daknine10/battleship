@@ -1,22 +1,16 @@
 import Ship from './ship.js'
+const player1Board = document.querySelector('.player1')
+const player2Board = document.querySelector('.player2')
+const turn = document.querySelector('.turn')
 
 export default class ScreenController {
-    constructor(game, player1Board, player2Board) {
+    constructor(game) {
         this.game = game;
-        this.player1Board = player1Board;
-        this.player2Board = player2Board;
     }
 
     updateScreen() {
-        if (this.game.checkWinner()) {
-            this.player1Board.parentElement.textContent = `${this.game.activePlayer.name} wins!`;
-            return;
-        }
-        if (this.game.mode === 'computer') {
-            const computerTurn = setTimeout(() => {
-                this.renderGameboard(this.player2Board, this.game.player2)}, 200)
-        }
-        this.renderGameboard(this.player1Board, this.game.player1)
+        this.renderGameboard(player1Board, this.game.player2)
+        this.renderGameboard(player2Board, this.game.player1)
     }
 
     renderGameboard(boardContainer, player) {
@@ -31,10 +25,17 @@ export default class ScreenController {
                 grid.dataset.row = i;
 
                 grid.addEventListener("click", () => {
-                    if (this.game.playRound(i, j))  {
-                        boardContainer.parentElement.parentElement.textContent = `${this.game.activePlayer.name} wins!`
+                    if (this.game.playerTurn(i, j)) {
+                        this.updateScreen()
+                        return
                     }
-                    this.updateScreen()
+                    if (this.game.checkWinner()) alert(`${this.game.activePlayer()}`)
+                    this.game.switchTurn();
+                    
+                    this.computerMove()
+
+                    if (this.game.checkWinner()) alert(`${this.game.activePlayer()}`)
+                    this.updateScreen(); //NEED TO MAKE THIS AN ASYNC FUNCTION
                 })
 
                 if (player.gameboard.board[i][j] !== null) {
@@ -49,12 +50,21 @@ export default class ScreenController {
                     }
                 }
 
-                if (this.game.activePlayer !== player) {
+                if (this.game.activePlayer !== this.game.player1) {
                     grid.disabled = true;
                 }
                 
                 boardContainer.appendChild(grid);
             }
         }
+    }
+
+    async computerMove() {
+
+        while (this.game.computerTurn()) {
+            await setTimeout(() => {this.updateScreen()}, 500)
+            continue;
+        }
+        this.game.switchTurn()
     }
 }

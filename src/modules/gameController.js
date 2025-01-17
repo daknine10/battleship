@@ -17,20 +17,11 @@ export default class GameController {
         this.activePlayer = this.activePlayer === this.player1 ? this.player2: this.player1;
     }
 
-    playRound(row, column) {
+    playerTurn(row, column) {
         if (this.activePlayer.gameboard.receiveAttack(row, column)) {
-            if (this.checkWinner()) {
-                console.log(`${this.activePlayer.name} wins!`);
-                return true;
-            }
-            return false
+            return true
         };
-        this.switchTurn();
-        if (this.activePlayer.name === 'Computer') this.computerTurn()
-        if (this.checkWinner()) {
-            console.log(`${this.activePlayer.name} wins!`);
-            return true;
-        }
+        return false;
     }
 
     checkWinner() {
@@ -41,6 +32,7 @@ export default class GameController {
     computerTurn() {
         let row = Math.floor(Math.random() * 10);
         let column = Math.floor(Math.random() * 10)
+        let coordinates;
 
         if (!this.q.length) {            
             while (!this._checkValid(row, column)) {
@@ -49,35 +41,27 @@ export default class GameController {
             }
         }
         else {
-            let coordinates = this.q.pop()
+            coordinates = this.q.pop()
             row = coordinates[0]
             column = coordinates[1]
         }
 
-        console.log(row)
-        console.log(column)
-
-        while (this.activePlayer.gameboard.receiveAttack(row, column)) {
+        if (this.activePlayer.gameboard.receiveAttack(row, column)) {
             this._refreshQueue(row, column)
+            console.log(this.q)
 
             if (!this.q.length) {
                 while (!this._checkValid(row, column)) {
                     row = Math.floor(Math.random() * 10);
                     column = Math.floor(Math.random() * 10)
-                    continue
+                    }
                 }
+                if (this.activePlayer.gameboard.receiveAttack(row, column)) {
+                    return true;
             }
-
-            let coordinates = this.q.pop()
-
-            row = coordinates[0]
-            column = coordinates[1]
-        };
-        if (this.checkWinner()) {
-            console.log(`${this.activePlayer.name} wins!`);
             return true;
         };
-        this.switchTurn();
+        return false;
     }
 
     _refreshQueue(row, column) {
