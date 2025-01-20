@@ -11,10 +11,28 @@ export default class GameController {
         this.activePlayer = player1
         this.q = []
         this.mode = 'computer'
+        this.randomShips(player1);
+        this.randomShips(player2);
     }
 
     switchTurn() {
         this.activePlayer = this.activePlayer === this.player1 ? this.player2: this.player1;
+    }
+
+    randomShips(player) {
+        let ships = [new Ship('Carrier', 5), new Ship('Battleship', 4), new Ship('Cruiser', 3), new Ship('Submarine', 3), new Ship('Destroyer', 2)]
+        for (let ship of ships) {
+            let random = Math.floor(Math.random() * 2);
+            if (random === 1) ship.pos='horizontal'
+
+            let row = Math.floor(Math.random() * 10);
+            let column = Math.floor(Math.random() * 10)
+            while (!player.gameboard.placeShip(ship, row, column)) {
+                row = Math.floor(Math.random() * 10);
+                column = Math.floor(Math.random() * 10)
+                continue
+                }
+        }
     }
 
     playerTurn(row, column) {
@@ -23,6 +41,7 @@ export default class GameController {
         };
         return false;
     }
+    
 
     checkWinner() {
         if (this.player1.gameboard.checkSunk() || this.player2.gameboard.checkSunk())

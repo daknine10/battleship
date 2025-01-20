@@ -31,6 +31,7 @@ export default class Gameboard {
                     return false
                 }
                 for (let i = 0; i < ship.length; i++) {
+                    if (this.board[row][column] instanceof Ship) return false
                     this.board[row][column] = ship;
                     row++;
                 }
@@ -41,6 +42,7 @@ export default class Gameboard {
                     return false
                 }     
                 for (let i = 0; i < ship.length; i++) {
+                    if (this.board[row][column] instanceof Ship) return false
                     this.board[row][column] = ship;
                     column++;
                 }  

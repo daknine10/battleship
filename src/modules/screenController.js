@@ -5,6 +5,7 @@ const player1Board = document.querySelector('.player1')
 const player2Board = document.querySelector('.player2')
 const turn = document.querySelector('.turn')
 
+
 export default class ScreenController {
     constructor(game) {
         this.game = game;
@@ -31,12 +32,12 @@ export default class ScreenController {
                 grid.addEventListener("click", () => this.gridEvent(i, j))
 
                 if (player.gameboard.board[i][j] !== null) {
-                    if (player.gameboard.board[i][j] instanceof Ship) grid.textContent = "S" //* remove later, debugging purpose only
+                    if (player.gameboard.board[i][j] instanceof Ship && boardContainer === player1Board) grid.className = 'ship'
                     else if  (player.gameboard.board[i][j] === 1) {
                         grid.textContent ="X";
                         grid.disabled = true;
                     }
-                    else {
+                    else if (player.gameboard.board[i][j] === 0) {
                         grid.className = "grid-disabled"
                         grid.disabled = true;
                     }

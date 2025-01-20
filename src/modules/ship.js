@@ -1,6 +1,7 @@
 export default class Ship {
-    constructor(length, pos = 'vertical') {
+    constructor(name, length, pos = 'vertical') {
         this.length = length;
+        this.name = name
         this.hits = 0;
         this.sunk = false;
         this.pos = pos
@@ -13,5 +14,9 @@ export default class Ship {
     hit() {
         this.hits += 1;
         this.isSunk();
+    }
+
+    changePos() {
+        this.pos = this.pos === 'vertical' ? 'horizontal': 'vertical';
     }
 }
