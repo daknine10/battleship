@@ -34,16 +34,16 @@ export default class ScreenController {
                 if (player.gameboard.board[i][j] !== null) {
                     if (player.gameboard.board[i][j] instanceof Ship && boardContainer === player1Board) grid.className = 'ship'
                     else if  (player.gameboard.board[i][j] === 1) {
-                        grid.textContent ="X";
+                        grid.className = "hit";
                         grid.disabled = true;
                     }
                     else if (player.gameboard.board[i][j] === 0) {
-                        grid.className = "grid-disabled"
+                        grid.className = "miss"
                         grid.disabled = true;
                     }
                 }
 
-                if (this.game.activePlayer !== this.game.player1) {
+                if (player === this.game.player2) {
                     grid.disabled = true;
                 }
                 
