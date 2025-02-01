@@ -8,30 +8,46 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: aqua;
+    padding: 10px;
+}
+
+.title {
+    font-weight: 800;
+    font-variant: small-caps;
+    font-size: 48px;
 }
 
 .gameboard {
     display: grid;
+    padding: 10px;
     width: 30%;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     column-gap: 0px;
 }
 
-.grid, .grid-disabled {
+.grid {
     height: 50px;
     width: 50px;
+    background: rgba(0, 255, 255, 0.342);
+    border: 1px solid black;
 }
 
-.grid-disabled {
-    background-color: black;
+.grid:disabled {
+    background: rgba(0, 255, 255, 0.342);
+    border: 1px dashed black;
 }
+
+.grid:hover {
+    background: lightgray;
+}
+
 
 .container {
     display: flex;
     flex-direction: row;
     gap: 20px;
+    padding: 20px;
 }
 
 h2 {
@@ -43,7 +59,7 @@ h2 {
 }
 
 .miss {
-    background-color: blue;
+    background-color: rgb(3, 49, 252);
 }
 
 .hit {

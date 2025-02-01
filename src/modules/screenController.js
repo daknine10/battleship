@@ -43,7 +43,7 @@ export default class ScreenController {
                     }
                 }
 
-                if (player === this.game.player2) {
+                if (player === this.game.player2 || this.game.activePlayer === this.game.player2) {
                     grid.disabled = true;
                 }
                 
@@ -62,7 +62,7 @@ export default class ScreenController {
 
         this.game.switchTurn();
         this.updateScreen();
-        
+
         while (this.game.computerTurn()) {
             await new Promise(resolve => setTimeout(resolve, 500));
             this.updateScreen()

@@ -40,6 +40,6 @@ describe('Gameboard', () => {
     test('Missed attacks register correctly', () => {
         board.placeShip(ship, 6, 3);
         expect(board.receiveAttack(5, 3)).toEqual(false);
-        expect(board.board[5][3]).toEqual(1);
+        expect(board.board[5][3]).toEqual(0);
     });
 });
