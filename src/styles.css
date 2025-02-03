@@ -24,6 +24,7 @@ body {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     column-gap: 0px;
+    transition: all 0.5s ease-out;
 }
 
 .grid {
@@ -48,6 +49,11 @@ body {
     flex-direction: row;
     gap: 20px;
     padding: 20px;
+}
+
+.transform {
+    transition: all 0.5s ease-out;
+    transform: scale(0.9);
 }
 
 h2 {

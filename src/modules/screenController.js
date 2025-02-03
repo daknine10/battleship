@@ -21,7 +21,7 @@ export default class ScreenController {
     renderGameboard(boardContainer, player) {
         boardContainer.textContent = "";
         boardContainer.dataset.player = player.name
-    
+   
         for (let i = 0; i < 10; i++) {
             for (let j = 0; j < 10; j++) {
                 const grid = document.createElement("button");
@@ -29,21 +29,25 @@ export default class ScreenController {
                 grid.dataset.column = j;
                 grid.dataset.row = i;
 
-                grid.addEventListener("click", () => this.gridEvent(i, j))
+                if (player === this.game.player1) {
+                    grid.addEventListener("click", () => this.gridEvent(i, j))
+                }
 
                 if (player.gameboard.board[i][j] !== null) {
                     if (player.gameboard.board[i][j] instanceof Ship && boardContainer === player1Board) grid.className = 'ship'
                     else if  (player.gameboard.board[i][j] === 1) {
                         grid.className = "hit";
+                        grid.textContent= "X"
                         grid.disabled = true;
                     }
                     else if (player.gameboard.board[i][j] === 0) {
                         grid.className = "miss"
+                        grid.textContent = "O"
                         grid.disabled = true;
                     }
                 }
 
-                if (player === this.game.player2 || this.game.activePlayer === this.game.player2) {
+                if (player !== this.game.activePlayer) {
                     grid.disabled = true;
                 }
                 
@@ -58,22 +62,26 @@ export default class ScreenController {
              if (this.game.checkWinner()) container.textContent = `${this.game.activePlayer.name} wins!`
             return
         }
+        player2Board.classList.toggle('transform')
         if (this.game.checkWinner()) container.textContent = `${this.game.activePlayer.name} wins!`
 
         this.game.switchTurn();
         this.updateScreen();
+        player1Board.classList.toggle('transform');
 
         while (this.game.computerTurn()) {
-            await new Promise(resolve => setTimeout(resolve, 500));
+            await new Promise(resolve => setTimeout(resolve, 1000));
             this.updateScreen()
             continue;
         }
 
         if (this.game.checkWinner()) container.textContent = `${this.game.activePlayer.name} wins!`
             
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        player1Board.classList.toggle('transform');
         this.game.switchTurn()
         this.updateScreen()
+        player2Board.classList.toggle('transform')
     }
 }
 
